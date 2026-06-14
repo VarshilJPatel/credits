@@ -1,4 +1,5 @@
 import type {
+	Organization,
 	OrganizationRepositoryContract,
 	UpdateOrganizationInput,
 } from "./organization.repository";
@@ -10,16 +11,35 @@ export type CreateOrganizationServiceInput = {
 
 export type UpdateOrganizationServiceInput = UpdateOrganizationInput;
 
-export class OrganizationService {
+export type OrganizationServiceContract = {
+	createOrganization(
+		input: CreateOrganizationServiceInput,
+	): Promise<Organization>;
+	getOrganization(id: string): Promise<Organization>;
+	updateOrganization(
+		id: string,
+		input: UpdateOrganizationServiceInput,
+	): Promise<Organization>;
+	authenticateWithApiKey(apiKey: string): Promise<Organization>;
+	deactivateOrganization(id: string): Promise<Organization>;
+};
+
+export class OrganizationService implements OrganizationServiceContract {
 	constructor(
 		private readonly organizationRepository: OrganizationRepositoryContract,
 	) {}
 
 	async createOrganization(input: CreateOrganizationServiceInput) {
-		return this.organizationRepository.create({
+		const organization = await this.organizationRepository.create({
 			name: input.name,
 			apiKey: input.apiKey ?? this.generateApiKey(),
 		});
+
+		if (!organization) {
+			throw new Error("Organization could not be created");
+		}
+
+		return organization;
 	}
 
 	async getOrganization(id: string) {

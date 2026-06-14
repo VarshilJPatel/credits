@@ -4,6 +4,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
+		"dev": "bun run --hot src/index.ts",
 		"test": "bun test",
 		"typecheck": "tsc --noEmit",
 		"check": "biome check ."
@@ -22,10 +23,12 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
+		"@hono/zod-validator": "^0.8.0",
 		"@neondatabase/serverless": "^1.1.0",
 		"@t3-oss/env-core": "^0.13.11",
 		"dotenv": "^17.4.2",
 		"drizzle-orm": "^0.45.2",
+		"hono": "^4.12.25",
 		"zod": "^4.4.3"
 	},
 	"config": {
