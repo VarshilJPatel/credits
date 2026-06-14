@@ -1,6 +1,6 @@
-import {
-	OrganizationRepository,
-	type UpdateOrganizationInput,
+import type {
+	OrganizationRepositoryContract,
+	UpdateOrganizationInput,
 } from "./organization.repository";
 
 export type CreateOrganizationServiceInput = {
@@ -12,7 +12,7 @@ export type UpdateOrganizationServiceInput = UpdateOrganizationInput;
 
 export class OrganizationService {
 	constructor(
-		private readonly organizationRepository = new OrganizationRepository(),
+		private readonly organizationRepository: OrganizationRepositoryContract,
 	) {}
 
 	async createOrganization(input: CreateOrganizationServiceInput) {
@@ -32,10 +32,7 @@ export class OrganizationService {
 		return organization;
 	}
 
-	async updateOrganization(
-		id: string,
-		input: UpdateOrganizationServiceInput,
-	) {
+	async updateOrganization(id: string, input: UpdateOrganizationServiceInput) {
 		const organization = await this.organizationRepository.update(id, input);
 
 		if (!organization) {
@@ -46,10 +43,9 @@ export class OrganizationService {
 	}
 
 	async authenticateWithApiKey(apiKey: string) {
-		const organization =
-			await this.organizationRepository.findByApiKey(apiKey);
+		const organization = await this.organizationRepository.findByApiKey(apiKey);
 
-		if (!organization || !organization.isActive) {
+		if (!organization?.isActive) {
 			throw new Error("Invalid API key");
 		}
 
@@ -70,4 +66,3 @@ export class OrganizationService {
 		return `sk_live_${crypto.randomUUID().replaceAll("-", "")}`;
 	}
 }
-

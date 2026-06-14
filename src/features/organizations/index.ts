@@ -1,12 +1,12 @@
-export { OrganizationRepository } from "./organization.repository";
 export type {
 	CreateOrganizationInput,
 	Organization,
+	OrganizationRepositoryContract,
 	UpdateOrganizationInput,
 } from "./organization.repository";
-export { OrganizationService } from "./organization.service";
+export { OrganizationRepository } from "./organization.repository";
 export type {
 	CreateOrganizationServiceInput,
 	UpdateOrganizationServiceInput,
 } from "./organization.service";
-
+export { OrganizationService } from "./organization.service";
