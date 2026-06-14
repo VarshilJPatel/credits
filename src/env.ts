@@ -7,7 +7,7 @@ export const env = createEnv({
 	 * Will throw if you access these variables on the client.
 	 */
 	server: {
-		PORT: z.number(),
+		PORT: z.coerce.number(),
 		DATABASE_URL: z.url(),
 	},
 

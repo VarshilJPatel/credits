@@ -21,6 +21,41 @@ export const authenticateOrganizationRequestSchema = z.object({
 	apiKey: z.string().trim().min(1),
 });
 
+export const publicOrganizationSchema = z.object({
+	id: z.uuid(),
+	name: z.string(),
+	isActive: z.boolean(),
+	createdAt: z.iso.datetime().or(z.date()),
+	updatedAt: z.iso.datetime().or(z.date()),
+});
+
+export const createdOrganizationSchema = publicOrganizationSchema.extend({
+	apiKey: z.string(),
+});
+
+export const createdOrganizationResponseSchema = z.object({
+	data: createdOrganizationSchema,
+});
+
+export const publicOrganizationResponseSchema = z.object({
+	data: publicOrganizationSchema,
+});
+
+export const errorResponseSchema = z.object({
+	error: z.object({
+		code: z.string(),
+		message: z.string(),
+	}),
+});
+
+export const validationErrorResponseSchema = z.object({
+	error: z.object({
+		code: z.literal("VALIDATION_ERROR"),
+		message: z.string(),
+		issues: z.array(z.unknown()),
+	}),
+});
+
 export type CreateOrganizationRequest = z.infer<
 	typeof createOrganizationRequestSchema
 >;
