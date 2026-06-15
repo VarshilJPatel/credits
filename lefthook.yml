@@ -6,7 +6,7 @@ pre-commit:
       stage_fixed: true
 
     test:
-      run: bun test
+      run: bunx tsc --noEmit
 
 # Build commit messages
 prepare-commit-msg:

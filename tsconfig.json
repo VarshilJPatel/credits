@@ -26,11 +26,10 @@
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false,
-		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"],
-			"@db/*": ["src/db/*"],
-			"@lib/*": ["src/lib/*"]
+			"@/*": ["./src/*"],
+			"@db/*": ["./src/db/*"],
+			"@lib/*": ["./src/lib/*"]
 		}
 	}
 }
